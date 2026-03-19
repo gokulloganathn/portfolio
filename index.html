@@ -224,16 +224,52 @@ section:not(#hero){padding:var(--sec) 0}
 .skb.Testing  {background:linear-gradient(90deg,#00ff99,#8b5cf6)}
 .skm{display:flex;justify-content:space-between;font-size:var(--f0);color:var(--mu)}
 
-/* ═══════════════════════════════════ EXPERIENCE */
+/* ═══════════════════════════════════════════════════ EXPERIENCE */
 #experience{background:var(--bg)}
-.tl{margin-top:32px;padding-left:20px;position:relative}
-.tl::before{content:'';position:absolute;left:0;top:12px;bottom:12px;width:1px;
-  background:linear-gradient(180deg,var(--c1) 0%,var(--c3) 60%,transparent 100%)}
+.tl{margin-top:32px;padding-left:28px;position:relative}
+.tl::before{
+  content:'';position:absolute;
+  left:5px;top:40px;bottom:40px;width:2px;
+  background:linear-gradient(180deg,var(--c1) 0%,var(--c3) 60%,transparent 100%);
+  border-radius:2px;
+}
 .tli{position:relative;margin-bottom:24px}
 .tli:last-child{margin-bottom:0}
-.tli::before{content:'';position:absolute;left:-25px;top:12px;width:8px;height:8px;
-  border-radius:50%;background:var(--g2);box-shadow:0 0 10px var(--c1);
-  animation:pls 2.5s ease-in-out infinite}
+/* Dot — card padding(20px) + half logo height(20px) = 40px from card top */
+.tli::before{
+  content:'';position:absolute;
+  left:-17px;top:40px;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--g2);
+  box-shadow:0 0 8px var(--c1);
+  transform:translateY(-50%);
+  z-index:1;
+}
+/* Current company (first item) — cyan fill + pulsing ring */
+.tli:first-child::before{
+  background:var(--c1);
+  box-shadow:0 0 0 0 rgba(0,212,255,.5);
+  animation:dotPulse 1.8s ease-out infinite;
+}
+.tli:first-child::after{
+  content:'';position:absolute;
+  left:-21px;top:40px;
+  width:20px;height:20px;border-radius:50%;
+  border:1.5px solid rgba(0,212,255,.4);
+  transform:translateY(-50%);
+  animation:ringPulse 1.8s ease-out infinite;
+  pointer-events:none;z-index:0;
+}
+@keyframes dotPulse{
+  0%  {box-shadow:0 0 0 0 rgba(0,212,255,.65)}
+  70% {box-shadow:0 0 0 9px rgba(0,212,255,0)}
+  100%{box-shadow:0 0 0 0 rgba(0,212,255,0)}
+}
+@keyframes ringPulse{
+  0%  {transform:translateY(-50%) scale(1);opacity:.6}
+  70% {transform:translateY(-50%) scale(1.9);opacity:0}
+  100%{transform:translateY(-50%) scale(1);opacity:0}
+}
 .ec{background:var(--glass);border:1px solid var(--bo);border-radius:14px;
   padding:20px 24px;backdrop-filter:blur(14px);
   transition:border-color .24s,box-shadow .24s,transform .24s}
@@ -281,11 +317,11 @@ section:not(#hero){padding:var(--sec) 0}
 .pl:hover{color:var(--c1)}
 .pl svg{width:12px;height:12px}
 
-/* ═══════════════════════════════════ CONTACT */
+/* ═══════════════════════════════════════════════════ CONTACT */
 #contact{background:var(--bg)}
 .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:32px;align-items:start}
-.cinfo{display:flex;flex-direction:column;gap:20px}
-.cii{display:flex;align-items:flex-start;gap:12px}
+.cinfo{display:flex;flex-direction:column;gap:20px;padding-top:4px}
+.cii{display:flex;align-items:center;gap:12px}
 .ciico{width:38px;height:38px;border-radius:9px;flex-shrink:0;
   background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.11);
   display:flex;align-items:center;justify-content:center}
@@ -738,14 +774,15 @@ let CFG = FD.config;
 /* ═══════════════════════════════════════════════════
    TERMINAL ANIMATION  — driven by profile.terminal from JSON
 ═══════════════════════════════════════════════════ */
+let _termStarted = false;
 function startTerminal(script){
+  if(_termStarted) return;
+  _termStarted = true;
   const container=document.getElementById('termLines');
   if(!container||!script?.length) return;
   const S=CFG.terminalCmdSpeed||52,
         OD=CFG.terminalOutputDelay||110,
         LP=CFG.terminalLoopPause||3500;
-
-  function clear(){ container.innerHTML=''; }
 
   function addLine(cls=''){
     const d=document.createElement('div');
@@ -770,7 +807,6 @@ function startTerminal(script){
   function runStep(idx,done){
     if(idx>=script.length){ done&&done(); return; }
     const s=script[idx], next=()=>runStep(idx+1,done);
-
     if(s.kind==='blank'){
       const d=document.createElement('div');
       d.className='tl-blank tline'; container.appendChild(d);
@@ -791,24 +827,41 @@ function startTerminal(script){
     }
   }
 
+  /* Clear sequence: type ./clear.sh → fade all lines → wipe → restart */
+  function runClear(afterClear){
+    // Add idle prompt then type ./clear.sh
+    const idleLine=addLine();
+    const pr0=document.createElement('span'); pr0.className='tl-pr'; pr0.textContent='~/dev $ ';
+    idleLine.appendChild(pr0);
+    setTimeout(()=>{
+      typeCmd(idleLine,'./clear.sh',()=>{
+        // After typed, pause then fade all lines out simultaneously
+        setTimeout(()=>{
+          const lines=[...container.querySelectorAll('.tline')];
+          lines.forEach(l=>{ l.style.transition='opacity .4s ease'; l.style.opacity='0'; });
+          setTimeout(()=>{ container.innerHTML=''; afterClear(); },450);
+        }, 500);
+      });
+    },60);
+  }
+
   function play(){
-    clear();
     runStep(0,()=>{
-      // idle blinking prompt
-      const idleLine=addLine();
-      const pr=document.createElement('span'); pr.className='tl-pr'; pr.textContent='~/dev $ ';
-      const cr=document.createElement('span'); cr.className='tcar';
-      idleLine.appendChild(pr); idleLine.appendChild(cr);
-      setTimeout(play,LP);
+      // Pause at end, then run clear sequence, then restart
+      setTimeout(()=>runClear(()=>setTimeout(play,300)), LP);
     });
   }
-  setTimeout(play,2200);
+
+  setTimeout(play, 2200);
 }
 
 /* ═══════════════════════════════════════════════════
    HERO TYPING (phrases)
 ═══════════════════════════════════════════════════ */
+let _typingStarted = false;
 function startTyping(phrases){
+  if(_typingStarted) return;
+  _typingStarted = true;
   const el=document.getElementById('tt');
   let pi=0,ci=0,del=false;
   const SPD=54,DEL=26,PAUSE=2300,PAUSE_END=460;
