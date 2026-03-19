@@ -1,4 +1,23 @@
 {
+  "config": {
+    "sectionPadding": "60px",
+    "animRevealThreshold": 0.10,
+    "statCountDuration": 1800,
+    "skillBarDelay": 80,
+    "terminalCmdSpeed": 52,
+    "terminalOutputDelay": 110,
+    "terminalLoopPause": 3500,
+    "particleCount": 90,
+    "particleOpacity": 0.22
+  },
+
+  "sections": {
+    "skills":     { "eyebrow": "Technical Arsenal",  "title": "Skills & Proficiency",  "sub": "Technologies I work with daily, ranked by proficiency level." },
+    "experience": { "eyebrow": "Career Journey",     "title": "Work Experience",        "sub": "Production systems serving users globally." },
+    "projects":   { "eyebrow": "Selected Work",      "title": "Projects",               "sub": "Things I've built from idea to deployment." },
+    "contact":    { "eyebrow": "Let's Connect",      "title": "Get in Touch",           "sub": "Open to full-time roles, freelance projects, or just a good chat about tech." }
+  },
+
   "profile": {
     "name": "Gokul Loganathan",
     "title": "Full Stack Java Developer",
@@ -6,25 +25,57 @@
     "email": "gokulloganathn@gmail.com",
     "phone": "+91 80723 80221",
     "location": "Chennai, India",
-    "resumeUrl": "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/resume/Gokul_Loganathan_Resume.pdf",
-    "avatarUrl": "",
-    "badgeText": "3 yrs @ Ford India",
+
+    "resumeUrl":     "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/resume/Gokul_Loganathan_Resume.pdf",
+    "avatarUrl":     "",
+    "badge1":        "Open to Work",
+    "badge2":        "3 yrs @ Ford India",
+    "heroTag":       "Available for opportunities",
+    "loaderSub":     "Portfolio",
+    "terminalTitle": "gokul@dev ~ zsh",
+
     "typingPhrases": [
       "I am Gokul Loganathan",
       "I build Java REST APIs & Services",
       "I develop Dynamic Web Applications",
       "I architect Micro Frontends & Microservices"
     ],
+
     "stats": [
-      { "num": "3+",  "label": "Years Exp."  },
-      { "num": "50x", "label": "Perf. Gain"  },
-      { "num": "23+", "label": "Countries"   }
+      { "num": 3,  "suffix": "+", "label": "Years Exp."  },
+      { "num": 50, "suffix": "×", "label": "Perf. Gain"  },
+      { "num": 23, "suffix": "+", "label": "Countries"   }
     ],
+
     "social": [
       { "name": "LinkedIn", "url": "https://linkedin.com/in/YOUR_LINKEDIN_ID" },
       { "name": "GitHub",   "url": "https://github.com/YOUR_GITHUB_USERNAME"  }
+    ],
+
+    "terminal": [
+      { "kind": "cmd",   "cmd":  "./whoami.sh" },
+      { "kind": "out",   "text": "gokul_loganathan  |  Senior SWE @ Ford India" },
+      { "kind": "blank" },
+      { "kind": "cmd",   "cmd":  "./skills.sh --backend" },
+      { "kind": "out",   "text": "Java 17  ·  Spring Boot  ·  Hibernate  ·  Spring Security" },
+      { "kind": "cmd",   "cmd":  "./skills.sh --frontend" },
+      { "kind": "out",   "text": "Angular  ·  TypeScript  ·  React JS  ·  RxJS" },
+      { "kind": "cmd",   "cmd":  "./skills.sh --cloud-db" },
+      { "kind": "out",   "text": "MongoDB  ·  PostgreSQL  ·  MySQL  ·  GCP Firestore" },
+      { "kind": "blank" },
+      { "kind": "cmd",   "cmd":  "./performance.sh" },
+      { "kind": "out",   "text": "⚡ 25-50x boost on 1.2M-doc MongoDB dataset" },
+      { "kind": "ok",    "text": "✓  2-3 min  →  3-6 sec response time" },
+      { "kind": "blank" },
+      { "kind": "cmd",   "cmd":  "./experience.sh --current" },
+      { "kind": "out",   "text": "Ford India  |  Senior Software Engineer" },
+      { "kind": "dim",   "text": "# Nov 2024 – Present  |  23+ countries" },
+      { "kind": "blank" },
+      { "kind": "cmd",   "cmd":  "./status.sh" },
+      { "kind": "ok",    "text": "● Open to work  |  Chennai, India" }
     ]
   },
+
   "skills": [
     { "name": "Java 17",        "level": 92, "category": "Backend"  },
     { "name": "Spring Boot",    "level": 90, "category": "Backend"  },
@@ -45,6 +96,7 @@
     { "name": "Postman",        "level": 88, "category": "Testing"  },
     { "name": "JUnit",          "level": 82, "category": "Testing"  }
   ],
+
   "experience": [
     {
       "company": "Ford India",
@@ -55,7 +107,7 @@
         "Developing dynamic web app for <strong>government vehicle-export approvals</strong> across 23+ countries using Angular, TypeScript, and RxJS.",
         "Designed secure REST APIs with <strong>Java 17, Spring Boot, Spring Data JPA & Spring Security</strong> for distributed systems.",
         "Leveraging <strong>GCP</strong> (Firestore, Cloud Storage, App Engine) for microservices deployment.",
-        "Delivered <strong>25-50x performance improvement</strong> on 1.2M-document MongoDB dataset — 2-3 min to 3-6 sec.",
+        "Delivered <strong>25–50× performance improvement</strong> on 1.2M-document MongoDB dataset — 2–3 min → 3–6 sec.",
         "Automated compliance document generation, eliminating all manual formatting effort."
       ]
     },
@@ -72,6 +124,7 @@
       ]
     }
   ],
+
   "projects": [
     {
       "name": "Appetizing Recipes",
@@ -88,7 +141,7 @@
       "subtitle": "ML Supply Prediction",
       "description": "AI-powered application predicting food supply & demand trends using machine learning. Full lifecycle from UI design to IBM Cloud deployment.",
       "icon": "🤖",
-      "iconBg": "rgba(0,220,255,0.10)",
+      "iconBg": "rgba(0,212,255,0.10)",
       "tech": ["Django", "IBM Cloud", "Machine Learning", "Python"],
       "liveUrl": "",
       "githubUrl": ""
