@@ -1,0 +1,107 @@
+{
+  "profile": {
+    "name": "Gokul Loganathan",
+    "title": "Full Stack Java Developer",
+    "bio": "Building scalable enterprise applications with Java 17, Spring Boot & Angular. Turning complex problems into elegant, high-performance solutions. Recognized for 25–50× performance improvements.",
+    "email": "gokulloganathn@gmail.com",
+    "phone": "+91 80723 80221",
+    "location": "Chennai, India",
+    "resumeUrl": "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/resume/Gokul_Loganathan_Resume.pdf",
+    "avatarUrl": "",
+    "badgeText": "3 yrs @ Ford India",
+    "typingPhrases": [
+      "I am Gokul Loganathan",
+      "I build Java REST APIs & Services",
+      "I develop Dynamic Web Applications",
+      "I architect Micro Frontends & Microservices"
+    ],
+    "stats": [
+      { "num": "3+",  "label": "Years Exp."  },
+      { "num": "50x", "label": "Perf. Gain"  },
+      { "num": "23+", "label": "Countries"   }
+    ],
+    "social": [
+      { "name": "LinkedIn", "url": "https://linkedin.com/in/YOUR_LINKEDIN_ID" },
+      { "name": "GitHub",   "url": "https://github.com/YOUR_GITHUB_USERNAME"  }
+    ]
+  },
+  "skills": [
+    { "name": "Java 17",        "level": 92, "category": "Backend"  },
+    { "name": "Spring Boot",    "level": 90, "category": "Backend"  },
+    { "name": "Hibernate/JPA",  "level": 85, "category": "Backend"  },
+    { "name": "Spring Security","level": 82, "category": "Backend"  },
+    { "name": "Angular",        "level": 85, "category": "Frontend" },
+    { "name": "TypeScript",     "level": 82, "category": "Frontend" },
+    { "name": "React JS",       "level": 70, "category": "Frontend" },
+    { "name": "JavaScript",     "level": 78, "category": "Frontend" },
+    { "name": "MongoDB",        "level": 80, "category": "Database" },
+    { "name": "PostgreSQL",     "level": 78, "category": "Database" },
+    { "name": "MySQL",          "level": 82, "category": "Database" },
+    { "name": "Google Cloud",   "level": 75, "category": "Cloud"    },
+    { "name": "Docker",         "level": 72, "category": "DevOps"   },
+    { "name": "Kubernetes",     "level": 65, "category": "DevOps"   },
+    { "name": "Git",            "level": 88, "category": "DevOps"   },
+    { "name": "Jenkins",        "level": 75, "category": "DevOps"   },
+    { "name": "Postman",        "level": 88, "category": "Testing"  },
+    { "name": "JUnit",          "level": 82, "category": "Testing"  }
+  ],
+  "experience": [
+    {
+      "company": "Ford India",
+      "companyLogo": "",
+      "role": "Senior Software Engineer",
+      "period": "Nov 2024 – Present",
+      "achievements": [
+        "Developing dynamic web app for <strong>government vehicle-export approvals</strong> across 23+ countries using Angular, TypeScript, and RxJS.",
+        "Designed secure REST APIs with <strong>Java 17, Spring Boot, Spring Data JPA & Spring Security</strong> for distributed systems.",
+        "Leveraging <strong>GCP</strong> (Firestore, Cloud Storage, App Engine) for microservices deployment.",
+        "Delivered <strong>25-50x performance improvement</strong> on 1.2M-document MongoDB dataset — 2-3 min to 3-6 sec.",
+        "Automated compliance document generation, eliminating all manual formatting effort."
+      ]
+    },
+    {
+      "company": "Ford India",
+      "companyLogo": "",
+      "role": "Junior Engineer",
+      "period": "Jan 2023 – Oct 2024",
+      "achievements": [
+        "<strong>High Achiever Award</strong> – Ford Intern City of Tomorrow Challenge, Ford NextGen 2023.",
+        "Built RESTful/OpenAPIs with <strong>Java 17, Spring MVC, Spring Data JPA & Spring Security</strong>.",
+        "Implemented CI/CD pipelines: Maven, Git, Jenkins with JUnit & Playwright test suites.",
+        "Integrated Google Cloud Services with Java for file upload/download from Cloud Storage."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Appetizing Recipes",
+      "subtitle": "Recipe Management App",
+      "description": "Interactive recipe management web app with real-time Firestore data, responsive design, and intuitive browsing and submission flows.",
+      "icon": "🍽️",
+      "iconBg": "rgba(0,255,153,0.10)",
+      "tech": ["React JS", "Material UI", "Firestore", "GCP"],
+      "liveUrl": "",
+      "githubUrl": ""
+    },
+    {
+      "name": "Food Demand AI",
+      "subtitle": "ML Supply Prediction",
+      "description": "AI-powered application predicting food supply & demand trends using machine learning. Full lifecycle from UI design to IBM Cloud deployment.",
+      "icon": "🤖",
+      "iconBg": "rgba(0,220,255,0.10)",
+      "tech": ["Django", "IBM Cloud", "Machine Learning", "Python"],
+      "liveUrl": "",
+      "githubUrl": ""
+    },
+    {
+      "name": "Skill Gallery",
+      "subtitle": "Document Management",
+      "description": "Secure document management platform for uploading, storing, and retrieving certificates with clean UI and structured MySQL database.",
+      "icon": "📁",
+      "iconBg": "rgba(139,92,246,0.10)",
+      "tech": ["PHP", "MySQL", "JavaScript", "HTML/CSS"],
+      "liveUrl": "",
+      "githubUrl": ""
+    }
+  ]
+}
