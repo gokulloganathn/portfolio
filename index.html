@@ -85,7 +85,8 @@ button{font-family:inherit;cursor:pointer}
 /* ═══════════════════════════════════ LAYOUT */
 .wrap{position:relative;z-index:1}
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
-section{padding:var(--sec) 0}
+/* All sections except hero get standard padding */
+section:not(#hero){padding:var(--sec) 0}
 
 /* ═══════════════════════════════════ SECTION HEADER */
 .ey{font-size:var(--f0);letter-spacing:.22em;text-transform:uppercase;color:var(--c1);
@@ -96,7 +97,7 @@ section{padding:var(--sec) 0}
 .ss{font-size:var(--f2);color:var(--mu);max-width:460px;line-height:1.8}
 
 /* ═══════════════════════════════════ HERO LAYOUT */
-#hero{min-height:100svh;display:flex;align-items:center;padding-top:72px;padding-bottom:32px}
+#hero{display:flex;align-items:flex-start;padding-top:72px;padding-bottom:52px}
 
 /* Desktop: left text | right terminal */
 .hg{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;width:100%}
@@ -347,38 +348,28 @@ footer{padding:20px 0;border-top:1px solid var(--bo)}
 
 /* ─── Tablet / small desktop */
 @media(max-width:900px){
-  :root{--sec:50px}
+  :root{--sec:48px}
   .hg{gap:36px}
-  .vf{width:290px;height:320px}
+  .vf{width:280px;height:310px}
 }
 
 /* ─── Mobile */
 @media(max-width:740px){
-  :root{--sec:44px}
+  :root{--sec:40px}
+  #hero{padding-top:68px;padding-bottom:36px}
   /* NAV */
   .nlinks,.ncta{display:none}
   .hbg{display:flex}
-  /* HERO: single column — text on top, terminal scrolls in below */
-  .hg{
-    grid-template-columns:1fr;
-    gap:0; /* gap controlled by terminal section margin */
-    text-align:center;
-  }
+  /* Single column: name first, terminal below */
+  .hg{grid-template-columns:1fr;gap:32px;text-align:center}
   .h-text{align-items:center}
   .hbio{max-width:100%;text-align:center}
   .hbtns{justify-content:center}
   .hstats{justify-content:center}
   .htag{justify-content:center}
-  /* Terminal: on mobile it sits BELOW the text, NOT in the hero grid.
-     We achieve this by ordering it last and letting it be scroll-revealed */
-  .hv{
-    order:10; /* push to bottom of grid */
-    margin-top:36px;
-    /* will be revealed by IntersectionObserver */
-    animation:none;
-    opacity:1; /* start visible, rv class handles reveal */
-  }
-  .vf{width:calc(100% - 40px);max-width:320px;height:300px;margin:0 auto}
+  /* Terminal shows below text on mobile */
+  .hv{display:flex;opacity:1;animation:none}
+  .vf{width:calc(100% - 24px);max-width:300px;height:270px;margin:0 auto}
 
   .st{font-size:var(--f6)}
   .cgrid{grid-template-columns:1fr}
@@ -390,7 +381,7 @@ footer{padding:20px 0;border-top:1px solid var(--bo)}
   .skgrid{grid-template-columns:1fr}
   .container{padding:0 14px}
   .nw{padding:0 14px}
-  .vf{height:270px}
+  .vf{height:240px}
 }
 </style>
 </head>
@@ -457,8 +448,8 @@ footer{padding:20px 0;border-top:1px solid var(--bo)}
         <div class="hstats" id="hstats"></div>
       </div>
 
-      <!-- RIGHT: Terminal (desktop side-by-side; mobile scroll-reveal) -->
-      <div class="hv rv-s" id="heroVisual">
+      <!-- RIGHT: Terminal (desktop side-by-side; hidden on mobile) -->
+      <div class="hv" id="heroVisual">
         <div class="vf">
           <div class="vi" id="vi">
             <div class="vterm" id="vTerminal">
@@ -535,7 +526,7 @@ footer{padding:20px 0;border-top:1px solid var(--bo)}
       <div class="cinfo rv-l d1">
         <div class="cii">
           <div class="ciico"><svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
-          <div><div class="cilbl">Email</div><div class="cival" id="cEmail">gokulloganathn@gmail.com</div></div>
+          <div><div class="cilbl">Email</div><div class="cival" id="cEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a4c3cbcfd1c8c8cbc3c5cac5d0cccae4c3c9c5cdc88ac7cbc9">[email&#160;protected]</a></div></div>
         </div>
         <div class="cii">
           <div class="ciico"><svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
@@ -571,7 +562,7 @@ footer{padding:20px 0;border-top:1px solid var(--bo)}
 
 </div><!-- /wrap -->
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ═══════════════════════════════════════════════════
    CONFIG  — replace with your GitHub raw URLs
 ═══════════════════════════════════════════════════ */
@@ -619,7 +610,7 @@ const FD={
     name:"Gokul Loganathan",title:"Full Stack Java Developer",
     bio:"Building scalable enterprise applications with Java 17, Spring Boot & Angular. Turning complex problems into elegant, high-performance solutions.",
     email:"gokulloganathn@gmail.com",phone:"+91 80723 80221",location:"Chennai, India",
-    resumeUrl:RESUME_URL,avatarUrl:"",
+    resumeUrl:"https://raw.githubusercontent.com/gokulloganathn/portfolio/main/resume/Gokul_Loganathan_Resume.pdf",avatarUrl:"",
     badge1:"Open to Work",badge2:"3 yrs @ Ford India",
     heroTag:"Available for opportunities",
     loaderSub:"Portfolio",
@@ -631,7 +622,10 @@ const FD={
       "I architect Micro Frontends & Microservices"
     ],
     stats:[{num:3,suffix:"+",label:"Years Exp."},{num:50,suffix:"×",label:"Perf. Gain"},{num:23,suffix:"+",label:"Countries"}],
-    social:[{name:"LinkedIn",url:"#"},{name:"GitHub",url:"#"}],
+    social:[
+      {name:"LinkedIn",url:"https://www.linkedin.com/in/gokul-loganathan"},
+      {name:"GitHub",  url:"https://github.com/gokulloganathn"}
+    ],
     terminal:[
       {kind:"cmd",  cmd:"./whoami.sh"},
       {kind:"out",  text:"gokul_loganathan  |  Senior SWE @ Ford India"},
@@ -1092,48 +1086,66 @@ document.getElementById('cForm').addEventListener('submit',function(e){
 function applyConfig(cfg){
   if(!cfg)return;
   CFG={...FD.config,...cfg};
-  // section padding
   if(cfg.sectionPadding)
     document.documentElement.style.setProperty('--sec',cfg.sectionPadding);
-  // particle opacity
-  if(cfg.particleOpacity)
-    document.getElementById('bgc').style.opacity=cfg.particleOpacity;
+  if(cfg.particleOpacity){
+    const bgc=document.getElementById('bgc');
+    if(bgc) bgc.style.opacity=cfg.particleOpacity;
+  }
 }
 
 /* ═══════════════════════════════════════════════════
-   BOOT
+   RENDER ALL
 ═══════════════════════════════════════════════════ */
-async function boot(){
-  let data=FD;
-  if(!DATA_URL.includes('YOUR_USERNAME')){
-    try{const r=await fetch(DATA_URL);if(r.ok)data=await r.json();}
-    catch(e){console.warn('Using fallback data');}
-  }
-  applyConfig(data.config);
-  rSections(data.sections);
-  rProfile(data.profile);
-  rSkills(data.skills);
-  rExp(data.experience);
-  rProjects(data.projects);
-  observe();
-  // Fire bars in viewport immediately
+function renderAll(data){
+  try{ applyConfig(data.config); }catch(e){}
+  try{ rSections(data.sections); }catch(e){}
+  try{ rProfile(data.profile); }catch(e){}
+  try{ rSkills(data.skills); }catch(e){}
+  try{ rExp(data.experience); }catch(e){}
+  try{ rProjects(data.projects); }catch(e){}
+  try{ observe(); }catch(e){}
   setTimeout(()=>{
-    document.querySelectorAll('.skb').forEach(b=>{
-      const c=b.closest('.skc');
-      if(c&&c.getBoundingClientRect().top<innerHeight)
-        setTimeout(()=>{b.style.width=b.dataset.level+'%';},parseInt(b.dataset.delay)||0);
-    });
-  },1000);
+    try{
+      document.querySelectorAll('.skb').forEach(b=>{
+        const c=b.closest('.skc');
+        if(c&&c.getBoundingClientRect().top<innerHeight)
+          setTimeout(()=>{b.style.width=b.dataset.level+'%';},parseInt(b.dataset.delay)||0);
+      });
+    }catch(e){}
+  },800);
 }
 
-window.addEventListener('load',()=>{
-  document.getElementById('fyear').textContent='© '+new Date().getFullYear()+' Gokul Loganathan. All rights reserved.';
-  boot().finally(()=>{
-    setTimeout(()=>{
-      document.getElementById('ldr').classList.add('out');
-      setTimeout(()=>{const l=document.getElementById('ldr');if(l)l.remove();},550);
-    },1350);
-  });
+/* ═══════════════════════════════════════════════════
+   HIDE LOADER
+═══════════════════════════════════════════════════ */
+function hideLdr(){
+  const ldr=document.getElementById('ldr');
+  if(!ldr)return;
+  ldr.classList.add('out');
+  setTimeout(()=>{ try{ldr.parentNode.removeChild(ldr);}catch(e){} },600);
+}
+
+/* ═══════════════════════════════════════════════════
+   BOOT  — render instantly, then background-refresh
+═══════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded',()=>{
+  try{
+    document.getElementById('fyear').textContent=
+      '© '+new Date().getFullYear()+' Gokul Loganathan. All rights reserved.';
+  }catch(e){}
+
+  // ① Render immediately with built-in fallback data — no network needed
+  renderAll(FD);
+
+  // ② Hide loader after a short paint delay
+  setTimeout(hideLdr, 800);
+
+  // ③ Background-fetch live data from GitHub and silently re-render
+  fetch(DATA_URL)
+    .then(r=>{ if(!r.ok) throw new Error('not ok'); return r.json(); })
+    .then(data=>{ renderAll(data); })
+    .catch(()=>{ /* keep fallback — already rendered */ });
 });
 </script>
 </body>
