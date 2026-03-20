@@ -162,9 +162,14 @@ section:not(#hero){padding:var(--sec) 0}
 .vtd:nth-child(3){background:#27c93f}
 .vtitle{font-size:.52rem;color:var(--mu);margin-left:auto;letter-spacing:.06em;font-family:var(--fb)}
 #termLines{display:flex;flex-direction:column;flex:1;overflow:hidden;gap:0}
-.tline{display:flex;align-items:baseline;min-height:1.4em;
+.tline{
+  display:flex;align-items:baseline;
+  height:1.45em;          /* fixed height — never squishes */
+  flex-shrink:0;          /* never compress */
   opacity:0;transition:opacity .05s ease;
-  font-family:var(--fb);font-size:.62rem;line-height:1.55}
+  font-family:var(--fb);font-size:.62rem;line-height:1.45;
+  white-space:nowrap;overflow:hidden;
+}
 .tline.show{opacity:1}
 .tl-pr{color:var(--c2);flex-shrink:0;white-space:nowrap}
 .tl-cmd{color:var(--c1)}
@@ -172,7 +177,7 @@ section:not(#hero){padding:var(--sec) 0}
 .tl-dim{color:#2e4458;font-style:italic}
 .tl-ok{color:var(--c2)}
 .tl-warn{color:var(--gold)}
-.tl-blank{height:.55em;opacity:1!important}
+.tl-blank{height:.65em;flex-shrink:0;opacity:1!important}
 .tcar{display:inline-block;width:6px;height:.8em;background:var(--c2);opacity:.9;
   margin-left:1px;vertical-align:middle;animation:cblink .65s step-end infinite;flex-shrink:0}
 
@@ -226,71 +231,189 @@ section:not(#hero){padding:var(--sec) 0}
 
 /* ═══════════════════════════════════════════════════ EXPERIENCE */
 #experience{background:var(--bg)}
-.tl{margin-top:32px;padding-left:28px;position:relative}
-.tl::before{
-  content:'';position:absolute;
-  left:5px;top:40px;bottom:40px;width:2px;
-  background:linear-gradient(180deg,var(--c1) 0%,var(--c3) 60%,transparent 100%);
-  border-radius:2px;
+
+.tl{margin-top:36px;position:relative;display:flex;gap:0}
+
+/* ── Dual-track column ── */
+.tl-tracks{
+  position:relative;
+  width:28px;flex-shrink:0;
 }
-.tli{position:relative;margin-bottom:24px}
-.tli:last-child{margin-bottom:0}
-/* Dot — card padding(20px) + half logo height(20px) = 40px from card top */
-.tli::before{
-  content:'';position:absolute;
-  left:-17px;top:40px;
-  width:12px;height:12px;border-radius:50%;
-  background:var(--g2);
-  box-shadow:0 0 8px var(--c1);
-  transform:translateY(-50%);
-  z-index:1;
+/* Full-height background (unfilled = grey = unknown future) */
+.tl-track-bg{
+  position:absolute;
+  left:13px;          /* 28/2 - 1.5 = 12.5 ≈ 13 — exact center of 28px col */
+  top:0;bottom:0;
+  width:3px;border-radius:3px;
+  background:rgba(255,255,255,.06);
 }
-/* Current company (first item) — cyan fill + pulsing ring */
-.tli:first-child::before{
+/* Fill track — grows from BOTTOM upward (past=filled, future=unfilled above) */
+.tl-track-fill{
+  position:absolute;
+  left:13px;
+  bottom:0;           /* anchored at bottom */
+  top:auto;
+  width:3px;border-radius:3px;
+  /* green at bottom (oldest/past), cyan at top (current) */
+  background:linear-gradient(0deg, var(--c2) 0%, var(--c1) 100%);
+  box-shadow:0 0 10px rgba(0,212,255,.3);
+  height:0;           /* animated to fill% via JS on scroll */
+  transition:height 1.6s cubic-bezier(.22,1,.36,1);
+  overflow:hidden;
+}
+/* Shimmer travels upward along the fill */
+.tl-track-fill::after{
+  content:'';
+  position:absolute;left:0;right:0;
+  height:50px;
+  background:linear-gradient(0deg,transparent 0%,rgba(255,255,255,.6) 50%,transparent 100%);
+  animation:shimmerUp 2.4s ease-in-out infinite;
+}
+@keyframes shimmerUp{
+  0%  {bottom:-50px}
+  100%{bottom:100%}
+}
+/* Top fade — blends into background indicating "future unknown" */
+.tl-tracks::before{
+  content:'';
+  position:absolute;
+  left:0;right:0;top:0;height:52px;
+  background:linear-gradient(180deg, var(--bg) 0%, transparent 100%);
+  pointer-events:none;z-index:3;
+}
+
+/* ── Cards column ── */
+.tl-cards{flex:1;display:flex;flex-direction:column;gap:20px;padding-left:20px}
+
+/* ── Each item row ── */
+.tli{position:relative}
+
+/*
+  Node math (no transform):
+  - .tl-tracks = 28px wide → track center at left=13px
+  - .tl-cards padding-left = 20px → .tli origin = 28+20=48px from .tl
+  - For node center at 13px: left = 13-48-(nodeW/2) = -35-7 = -42px (14px node)
+  - Vertical: ec padding-top=20px, elog=40px tall → logo center at 40px → top = 40-7 = 33px
+*/
+.tl-node{
+  position:absolute;
+  left:-42px;
+  top:33px;
+  width:14px;height:14px;border-radius:50%;
+  background:var(--c2);
+  border:2px solid var(--c2);
+  box-shadow:0 0 8px rgba(0,255,153,.5);
+  z-index:4;
+  transition:background .4s,border-color .4s,box-shadow .4s;
+}
+/* Current role: cyan, sonar pulse */
+.tl-node.is-current{
   background:var(--c1);
-  box-shadow:0 0 0 0 rgba(0,212,255,.5);
-  animation:dotPulse 1.8s ease-out infinite;
+  border-color:var(--c1);
+  width:16px;height:16px;
+  left:-43px;         /* re-center: 13-48-(16/2) = -43px */
+  top:32px;           /* re-center: 40-8 = 32px */
+  box-shadow:0 0 0 0 rgba(0,212,255,.6);
+  animation:sonarPulse 1.8s ease-out infinite;
 }
-.tli:first-child::after{
+@keyframes sonarPulse{
+  0%  {box-shadow:0 0 0 0   rgba(0,212,255,.7)}
+  70% {box-shadow:0 0 0 12px rgba(0,212,255,0)}
+  100%{box-shadow:0 0 0 0   rgba(0,212,255,0)}
+}
+.tl-node.is-current::after{
   content:'';position:absolute;
-  left:-21px;top:40px;
-  width:20px;height:20px;border-radius:50%;
-  border:1.5px solid rgba(0,212,255,.4);
-  transform:translateY(-50%);
-  animation:ringPulse 1.8s ease-out infinite;
-  pointer-events:none;z-index:0;
+  inset:-6px;border-radius:50%;
+  border:1.5px solid rgba(0,212,255,.3);
+  animation:ringExpand 1.8s ease-out infinite;
 }
-@keyframes dotPulse{
-  0%  {box-shadow:0 0 0 0 rgba(0,212,255,.65)}
-  70% {box-shadow:0 0 0 9px rgba(0,212,255,0)}
-  100%{box-shadow:0 0 0 0 rgba(0,212,255,0)}
+@keyframes ringExpand{
+  0%  {transform:scale(1);opacity:.65}
+  70% {transform:scale(2.1);opacity:0}
+  100%{transform:scale(1);opacity:0}
 }
-@keyframes ringPulse{
-  0%  {transform:translateY(-50%) scale(1);opacity:.6}
-  70% {transform:translateY(-50%) scale(1.9);opacity:0}
-  100%{transform:translateY(-50%) scale(1);opacity:0}
+
+/* ── Card ── */
+.ec{
+  background:var(--glass);border:1px solid var(--bo);
+  border-radius:14px;padding:20px 22px;
+  backdrop-filter:blur(14px);width:100%;
+  transition:border-color .25s,box-shadow .25s,transform .25s;
 }
-.ec{background:var(--glass);border:1px solid var(--bo);border-radius:14px;
-  padding:20px 24px;backdrop-filter:blur(14px);
-  transition:border-color .24s,box-shadow .24s,transform .24s}
 .ec:hover{border-color:var(--boh);box-shadow:0 8px 32px rgba(0,212,255,.07);transform:translateX(3px)}
-.et{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
-.elog{width:40px;height:40px;border-radius:9px;
+.ec.ec-current{border-color:rgba(0,212,255,.2);background:rgba(0,212,255,.025)}
+
+/* Current badge */
+.ec-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:var(--f0);letter-spacing:.08em;
+  color:var(--c1);background:rgba(0,212,255,.08);
+  border:1px solid rgba(0,212,255,.18);
+  padding:2px 9px;border-radius:99px;margin-bottom:10px;
+}
+.ec-badge-dot{
+  width:5px;height:5px;border-radius:50%;background:var(--c1);
+  animation:blinkDot 1s step-end infinite;
+}
+@keyframes blinkDot{0%,100%{opacity:1}50%{opacity:0}}
+
+/* Card header */
+.et{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.elog{
+  width:40px;height:40px;border-radius:9px;flex-shrink:0;
   background:rgba(255,255,255,.06);border:1px solid var(--bo);
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--fd);font-size:var(--f3);font-weight:700;flex-shrink:0;color:var(--c1)}
+  font-family:var(--fd);font-size:var(--f3);font-weight:700;color:var(--c1);
+}
 .elog img{width:26px;height:26px;object-fit:contain}
 .em{flex:1;min-width:0}
-.eco{font-family:var(--fd);font-size:var(--f4);font-weight:700;color:#fff}
-.ero{font-size:var(--f2);font-weight:500;background:var(--g3);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.ep{font-size:var(--f0);color:var(--mu);
+.eco{font-family:var(--fd);font-size:var(--f4);font-weight:700;color:#fff;line-height:1.2}
+.ero{
+  font-size:var(--f2);font-weight:500;margin-top:1px;
+  background:var(--g3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.ep{
+  font-size:var(--f0);color:var(--mu);
   background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.12);
-  padding:3px 10px;border-radius:99px;white-space:nowrap;align-self:flex-start;flex-shrink:0}
-.el{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:6px}
-.el li{font-size:var(--f2);color:var(--mu);padding-left:14px;position:relative;line-height:1.65}
-.el li::before{content:'▸';position:absolute;left:0;color:var(--c2);font-size:.58rem;top:4px}
+  padding:3px 10px;border-radius:99px;white-space:nowrap;align-self:flex-start;flex-shrink:0;
+}
+
+/* Achievements */
+.el{list-style:none;margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.el li{
+  font-size:var(--f2);color:var(--mu);
+  padding-left:16px;position:relative;line-height:1.65;
+}
+/* Round bullet centered on first line of text */
+.el li::before{
+  content:'';
+  position:absolute;left:0;top:8px;
+  width:5px;height:5px;border-radius:50%;
+  background:var(--c2);flex-shrink:0;
+}
 .el li strong{color:var(--tx);font-weight:500}
+
+/* Skill chips */
+.exp-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:14px;padding-top:12px;border-top:1px solid var(--bo)}
+.exp-chip{
+  font-size:var(--f0);
+  background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.13);
+  color:var(--c1);padding:2px 9px;border-radius:99px;
+}
+
+/* ── Mobile adjustments ── */
+@media(max-width:600px){
+  .tl-tracks{width:24px}
+  .tl-track-bg{left:11px}
+  .tl-track-fill{left:11px}
+  .tl-cards{padding-left:16px}
+  /* Recalculate: tracks=24, cards padding=16, tli origin=40px
+     node center target=12px → left=12-40-7=-35px (14px) / left=12-40-8=-36px (16px) */
+  .tl-node{left:-35px}
+  .tl-node.is-current{left:-36px}
+  .tl-tracks::before{height:40px}
+  .ec{padding:16px 16px}
+}
 
 /* ═══════════════════════════════════ PROJECTS */
 #projects{background:var(--bg2)}
@@ -530,7 +653,13 @@ footer{padding:20px 0;border-top:1px solid var(--bo)}
       <h2 class="st" id="st-exp">Work Experience</h2>
       <p class="ss" id="ss-exp">Production systems serving users globally.</p>
     </div>
-    <div class="tl" id="tl"></div>
+    <div class="tl" id="tl">
+      <div class="tl-tracks">
+        <div class="tl-track-bg"></div>
+        <div class="tl-track-fill" id="tlFill"></div>
+      </div>
+      <div class="tl-cards" id="tlCards"></div>
+    </div>
   </div>
 </section>
 
@@ -698,6 +827,7 @@ const FD={
   ],
   experience:[
     {company:"Ford India",companyLogo:"",role:"Senior Software Engineer",period:"Nov 2024 – Present",
+     chips:["Angular","TypeScript","RxJS","Java 17","Spring Boot","MongoDB","GCP"],
      achievements:[
        "Developing dynamic web app for <strong>government vehicle-export approvals</strong> across 23+ countries using Angular, TypeScript, and RxJS.",
        "Designed secure REST APIs with <strong>Java 17, Spring Boot, Spring Data JPA & Spring Security</strong> for distributed systems.",
@@ -706,6 +836,7 @@ const FD={
        "Automated compliance document generation, eliminating all manual formatting effort."
     ]},
     {company:"Ford India",companyLogo:"",role:"Junior Engineer",period:"Jan 2023 – Oct 2024",
+     chips:["Java 17","Spring Boot","Spring MVC","JUnit","Jenkins","GCP","Maven"],
      achievements:[
        "<strong>High Achiever Award</strong> – Ford Intern City of Tomorrow Challenge, Ford NextGen 2023.",
        "Built RESTful/OpenAPIs with <strong>Java 17, Spring MVC, Spring Data JPA & Spring Security</strong>.",
@@ -789,6 +920,13 @@ function startTerminal(script){
     d.className='tline'+(cls?' '+cls:'');
     container.appendChild(d);
     requestAnimationFrame(()=>d.classList.add('show'));
+    // Remove oldest line if container overflows to maintain fixed spacing
+    const lineH = 1.45 * parseFloat(getComputedStyle(container).fontSize||'9.92');
+    const maxLines = Math.floor(container.parentElement.offsetHeight / lineH) - 1;
+    const lines = container.querySelectorAll('.tline');
+    if(lines.length > maxLines && maxLines > 0){
+      lines[0].remove();
+    }
     return d;
   }
 
@@ -1075,22 +1213,74 @@ function rSkills(skills){
 }
 
 /* ═══════════════════════════════════════════════════
-   RENDER — EXPERIENCE
+   RENDER — EXPERIENCE (Progress Fill Rail)
 ═══════════════════════════════════════════════════ */
 function rExp(exp){
-  document.getElementById('tl').innerHTML=exp.map((e,i)=>`
-    <div class="tli rv-l d${Math.min(i+1,6)}">
-      <div class="ec">
+  const cards = document.getElementById('tlCards');
+  if(!cards) return;
+
+  cards.innerHTML = exp.map((e,i)=>{
+    const isCurrent = i === 0;
+    const chips = (e.chips||e.tech||[]).map(c=>`<span class="exp-chip">${c}</span>`).join('');
+    return `
+    <div class="tli rv-l" style="transition-delay:${i*.15}s">
+      <div class="tl-node ${isCurrent?'is-current':''}"></div>
+      <div class="ec ${isCurrent?'ec-current':''}">
+        ${isCurrent?`<div class="ec-badge"><span class="ec-badge-dot"></span>Current Role</div>`:''}
         <div class="et">
           <div class="elog">
-            ${e.companyLogo?`<img src="${e.companyLogo}" alt="${e.company}" onerror="this.outerHTML='${e.company[0]}'">`:`${e.company[0]}`}
+            ${e.companyLogo
+              ?`<img src="${e.companyLogo}" alt="${e.company}" onerror="this.outerHTML='<span>${e.company[0]}</span>'">`
+              :e.company[0]}
           </div>
-          <div class="em"><div class="eco">${e.company}</div><div class="ero">${e.role}</div></div>
+          <div class="em">
+            <div class="eco">${e.company}</div>
+            <div class="ero">${e.role}</div>
+          </div>
           <div class="ep">${e.period}</div>
         </div>
         <ul class="el">${e.achievements.map(a=>`<li>${a}</li>`).join('')}</ul>
+        ${chips?`<div class="exp-chips">${chips}</div>`:''}
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
+
+  /* Animate fill track height on scroll using DOM measurement.
+     Fill goes bottom-up: starts from bottom of last (oldest) card's node,
+     ends at TOP of current (first) card's node.
+     Past + current = filled. Above current = unfilled = future unknown. */
+  const fillEl = document.getElementById('tlFill');
+  if(!fillEl) return;
+
+  const fillObserver = new IntersectionObserver(entries=>{
+    if(!entries[0].isIntersecting) return;
+    fillObserver.disconnect();
+
+    // Measure after a paint so layout is settled
+    requestAnimationFrame(()=>{
+      const tracksEl  = document.querySelector('.tl-tracks');
+      const currentNode = cards.querySelector('.tl-node.is-current');
+      if(!tracksEl || !currentNode) return;
+
+      const tracksRect  = tracksEl.getBoundingClientRect();
+      const nodeRect    = currentNode.getBoundingClientRect();
+
+      // Fill height = distance from bottom of tracks to center of current node
+      const nodeCenterY  = nodeRect.top  + nodeRect.height / 2;
+      const tracksBottom = tracksRect.bottom;
+      const tracksHeight = tracksRect.height;
+
+      // How far from bottom of track to current node center
+      const fillPx = tracksBottom - nodeCenterY;
+      const fillPct = Math.min(100, Math.max(0, (fillPx / tracksHeight) * 100));
+
+      // Animate after brief delay for visual effect
+      setTimeout(()=>{ fillEl.style.height = fillPct + '%'; }, 200);
+    });
+  },{threshold:0.15});
+
+  const section = document.getElementById('experience');
+  if(section) fillObserver.observe(section);
 }
 
 /* ═══════════════════════════════════════════════════
