@@ -111,17 +111,78 @@ section:not(#hero){padding:var(--sec) 0}
   box-shadow:0 0 6px var(--c2);animation:pls 1.6s ease-in-out infinite}
 @keyframes pls{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
 
-.hname{font-family:var(--fd);font-size:var(--fh);font-weight:700;
-  letter-spacing:-1.5px;color:#fff;line-height:1.06;margin-bottom:12px;
-  opacity:0;animation:ru .6s var(--ease-out) .2s forwards}
-.hname span{background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-
-.tw{min-height:1.8rem;margin-bottom:16px;display:flex;align-items:center;
-  opacity:0;animation:ru .6s var(--ease-out) .45s forwards}
-.tt{font-family:var(--fd);font-size:var(--f5);font-weight:600;
-  background:var(--g3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.cur{display:inline-block;width:2px;height:1.05em;background:var(--c1);
-  margin-left:2px;vertical-align:middle;animation:cblink .7s step-end infinite}
+/* ═══════════════════════════════════════
+   NAME + TYPING  — 2-column layout
+   "I'm " is col-1 (fixed width, natural)
+   name text + typing row are col-2 (flex)
+   → typing ALWAYS starts at Gokul's X position
+════════════════════════════════════════ */
+.hname-block{
+  display:flex;
+  align-items:flex-start;
+  gap:0;
+  margin-bottom:4px;
+  opacity:0;
+  animation:ru .6s var(--ease-out) .2s forwards;
+}
+/* "I'm " — col 1, sized to name font, white space preserved */
+.hname-im{
+  font-family:var(--fd);
+  font-size:var(--fh);
+  font-weight:700;
+  letter-spacing:-1.5px;
+  color:#fff;
+  line-height:1.06;
+  white-space:pre;   /* keeps trailing space */
+  flex-shrink:0;
+}
+/* Right column: name on top, typing underneath */
+.hname-right{
+  display:flex;
+  flex-direction:column;
+  gap:4px;              /* tight gap between name and typing */
+  min-width:0;
+}
+/* Name span — gradient */
+.hname-text{
+  font-family:var(--fd);
+  font-size:var(--fh);
+  font-weight:700;
+  letter-spacing:-1.5px;
+  line-height:1.06;
+  background:var(--g1);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+/* Typing row — sits in right column, naturally left-aligned with name */
+.tw{
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;         /* wraps to next line if phrase is long */
+  margin-bottom:14px;
+  opacity:0;
+  animation:ru .6s var(--ease-out) .45s forwards;
+  min-height:1.4em;
+}
+/* Typed text */
+.tt{
+  font-family:var(--fd);
+  font-size:var(--f4);   /* 1rem — smaller than name clamp(1.9-3rem) */
+  font-weight:600;
+  background:var(--g3);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  word-break:break-word;
+  line-height:1.4;
+}
+/* Cursor — inline after text, wraps with it */
+.cur{
+  display:inline-block;
+  width:2px;height:.85em;
+  background:var(--c1);
+  margin-left:2px;
+  vertical-align:middle;
+  flex-shrink:0;
+  animation:cblink .7s step-end infinite;
+}
 @keyframes cblink{0%,100%{opacity:1}50%{opacity:0}}
 
 .hbio{font-size:var(--f2);color:var(--mu);max-width:420px;line-height:1.85;
@@ -526,6 +587,9 @@ footer{padding:20px 0;border-top:1px solid var(--bo)}
   .hbtns{justify-content:center}
   .hstats{justify-content:center}
   .htag{justify-content:center}
+  /* Centre the name block on mobile */
+  .hname-block{justify-content:center}
+  .tw{justify-content:center}
   /* Terminal shows below text on mobile */
   .hv{display:flex;opacity:1;animation:none}
   .vf{width:calc(100% - 24px);max-width:300px;height:270px;margin:0 auto}
@@ -591,8 +655,13 @@ footer{padding:20px 0;border-top:1px solid var(--bo)}
       <!-- LEFT: text -->
       <div class="h-text">
         <div class="htag"><div class="tdot"></div><span id="heroTag">Available for opportunities</span></div>
-        <h1 class="hname">I'm <span id="hns">Gokul Loganathan</span></h1>
-        <div class="tw"><span class="tt" id="tt"></span><span class="cur"></span></div>
+        <div class="hname-block">
+          <span class="hname-im">I'm </span>
+          <div class="hname-right">
+            <span class="hname-text" id="hns">Gokul Loganathan</span>
+            <div class="tw"><span class="tt" id="tt"></span><span class="cur"></span></div>
+          </div>
+        </div>
         <p class="hbio" id="hbio">Building scalable enterprise applications with Java 17, Spring Boot &amp; Angular. Turning complex problems into elegant, high-performance solutions.</p>
         <div class="hbtns">
           <a href="#contact" class="btn bp">
@@ -763,7 +832,46 @@ const FD={
     terminalOutputDelay:110,
     terminalLoopPause:3500,
     particleCount:90,
-    particleOpacity:0.22
+    particleOpacity:0.22,
+    theme:{
+      colors:{
+        cyan:   "#00dcff",
+        green:  "#00ff99",
+        violet: "#8b5cf6",
+        gold:   "#f0a500",
+        bg:     "#05090f",
+        bg2:    "#07111f",
+        bg3:    "#0c1628",
+        text:   "#c8d8ea",
+        muted:  "#4e6070",
+        glassOpacity:    "0.82",
+        borderOpacity:   "0.09",
+        borderHovOpacity:"0.26"
+      },
+      fonts:{
+        display:"Syne",
+        mono:"DM Mono"
+      },
+      layout:{
+        sectionPadding:    "60px",
+        heroTerminalWidth: "320px",
+        heroTerminalHeight:"350px"
+      },
+      animation:{
+        particleCount:     90,
+        particleOpacity:   0.22,
+        terminalCmdSpeed:  52,
+        terminalOutputDelay:110,
+        terminalLoopPause: 3500,
+        statCountDuration: 1800,
+        skillBarDelay:     80,
+        revealThreshold:   0.10,
+        typingSpeed:       54,
+        typingDeleteSpeed: 26,
+        typingPause:       2300,
+        typingPauseEnd:    460
+      }
+    }
   },
   sections:{
     skills:{eyebrow:"Technical Arsenal",title:"Skills & Proficiency",sub:"Technologies I work with daily, ranked by proficiency."},
@@ -1001,8 +1109,12 @@ function startTyping(phrases){
   if(_typingStarted) return;
   _typingStarted = true;
   const el=document.getElementById('tt');
+  if(!el) return;
+  const SPD      = (CFG.theme?.animation?.typingSpeed       || CFG.typingSpeed       || 54);
+  const DEL      = (CFG.theme?.animation?.typingDeleteSpeed || CFG.typingDeleteSpeed || 26);
+  const PAUSE    = (CFG.theme?.animation?.typingPause       || CFG.typingPause       || 2300);
+  const PAUSE_END= (CFG.theme?.animation?.typingPauseEnd    || CFG.typingPauseEnd    || 460);
   let pi=0,ci=0,del=false;
-  const SPD=54,DEL=26,PAUSE=2300,PAUSE_END=460;
   (function tick(){
     const ph=phrases[pi];
     if(!del){ el.textContent=ph.slice(0,ci+1); ci++; if(ci===ph.length){del=true;setTimeout(tick,PAUSE);return;} }
@@ -1324,16 +1436,103 @@ document.getElementById('cForm').addEventListener('submit',function(e){
 });
 
 /* ═══════════════════════════════════════════════════
+   APPLY THEME  — injects JSON theme block into CSS vars
+   Safe: :root{} values remain as fallback if JSON absent
+═══════════════════════════════════════════════════ */
+function applyTheme(t){
+  if(!t) return;
+  const R = document.documentElement;
+  const sv = (k,v) => { if(v) R.style.setProperty(k,v); };
+
+  // ── Colors ──
+  if(t.colors){
+    const c = t.colors;
+    sv('--c1',  c.cyan);
+    sv('--c2',  c.green);
+    sv('--c3',  c.violet);
+    sv('--gold',c.gold);
+    sv('--bg',  c.bg);
+    sv('--bg2', c.bg2);
+    sv('--bg3', c.bg3);
+    sv('--tx',  c.text);
+    sv('--mu',  c.muted);
+    // Rebuild derived variables from base colors
+    if(c.cyan && c.green && c.violet){
+      sv('--g1',`linear-gradient(135deg,${c.cyan} 0%,${c.green} 50%,${c.violet} 100%)`);
+      sv('--g2',`linear-gradient(135deg,${c.cyan} 0%,${c.violet} 100%)`);
+      sv('--g3',`linear-gradient(135deg,${c.green} 0%,${c.cyan} 100%)`);
+    }
+    if(c.bg){
+      const glassOpacity = c.glassOpacity || '.82';
+      // parse bg hex to rgb for glass
+      const hex = c.bg.replace('#','');
+      const r=parseInt(hex.slice(0,2),16),
+            g=parseInt(hex.slice(2,4),16),
+            b=parseInt(hex.slice(4,6),16);
+      sv('--glass',`rgba(${r},${g},${b},${glassOpacity})`);
+    }
+    if(c.cyan){
+      sv('--bo',  c.borderOpacity  ? `rgba(0,212,255,${c.borderOpacity})`  : undefined);
+      sv('--boh', c.borderHovOpacity ? `rgba(0,212,255,${c.borderHovOpacity})` : undefined);
+    }
+  }
+
+  // ── Fonts ──
+  if(t.fonts){
+    const f = t.fonts;
+    if(f.display) sv('--fd', `'${f.display}',sans-serif`);
+    if(f.mono)    sv('--fb', `'${f.mono}',monospace`);
+    // Inject Google Fonts link if custom fonts specified
+    if((f.display || f.mono) && (f.display !== 'Syne' || f.mono !== 'DM Mono')){
+      const families = [];
+      if(f.display) families.push(`family=${encodeURIComponent(f.display)}:wght@500;600;700`);
+      if(f.mono)    families.push(`family=${encodeURIComponent(f.mono)}:wght@300;400`);
+      if(families.length){
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = `https://fonts.googleapis.com/css2?${families.join('&')}&display=swap`;
+        document.head.appendChild(link);
+      }
+    }
+  }
+
+  // ── Layout ──
+  if(t.layout){
+    const l = t.layout;
+    sv('--sec', l.sectionPadding);
+    if(l.heroTerminalWidth || l.heroTerminalHeight){
+      // Apply via inline style to .vf after DOM ready
+      requestAnimationFrame(()=>{
+        const vf = document.querySelector('.vf');
+        if(vf){
+          if(l.heroTerminalWidth)  vf.style.width  = l.heroTerminalWidth;
+          if(l.heroTerminalHeight) vf.style.height = l.heroTerminalHeight;
+        }
+      });
+    }
+  }
+
+  // ── Particle opacity ──
+  if(t.animation?.particleOpacity !== undefined){
+    const bgc = document.getElementById('bgc');
+    if(bgc) bgc.style.opacity = t.animation.particleOpacity;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
    APPLY CONFIG
 ═══════════════════════════════════════════════════ */
 function applyConfig(cfg){
-  if(!cfg)return;
-  CFG={...FD.config,...cfg};
+  if(!cfg) return;
+  CFG = {...FD.config, ...cfg};
+  // Apply theme first so all CSS vars are set before render
+  if(cfg.theme) applyTheme(cfg.theme);
+  // Legacy flat config overrides (backwards compatible)
   if(cfg.sectionPadding)
-    document.documentElement.style.setProperty('--sec',cfg.sectionPadding);
-  if(cfg.particleOpacity){
-    const bgc=document.getElementById('bgc');
-    if(bgc) bgc.style.opacity=cfg.particleOpacity;
+    document.documentElement.style.setProperty('--sec', cfg.sectionPadding);
+  if(cfg.particleOpacity !== undefined){
+    const bgc = document.getElementById('bgc');
+    if(bgc) bgc.style.opacity = cfg.particleOpacity;
   }
 }
 
