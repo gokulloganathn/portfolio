@@ -8,7 +8,47 @@
     "terminalOutputDelay": 110,
     "terminalLoopPause": 3500,
     "particleCount": 90,
-    "particleOpacity": 0.22
+    "particleOpacity": 0.22,
+
+    "theme": {
+      "colors": {
+        "cyan":              "#00dcff",
+        "green":             "#00ff99",
+        "violet":            "#8b5cf6",
+        "gold":              "#f0a500",
+        "bg":                "#05090f",
+        "bg2":               "#07111f",
+        "bg3":               "#0c1628",
+        "text":              "#c8d8ea",
+        "muted":             "#4e6070",
+        "glassOpacity":      "0.82",
+        "borderOpacity":     "0.09",
+        "borderHovOpacity":  "0.26"
+      },
+      "fonts": {
+        "display": "Syne",
+        "mono":    "DM Mono"
+      },
+      "layout": {
+        "sectionPadding":     "60px",
+        "heroTerminalWidth":  "320px",
+        "heroTerminalHeight": "350px"
+      },
+      "animation": {
+        "particleCount":      90,
+        "particleOpacity":    0.22,
+        "terminalCmdSpeed":   52,
+        "terminalOutputDelay":110,
+        "terminalLoopPause":  3500,
+        "statCountDuration":  1800,
+        "skillBarDelay":      80,
+        "revealThreshold":    0.10,
+        "typingSpeed":        54,
+        "typingDeleteSpeed":  26,
+        "typingPause":        2300,
+        "typingPauseEnd":     460
+      }
+    }
   },
 
   "sections": {
@@ -48,8 +88,8 @@
     ],
 
     "social": [
-      { "name": "LinkedIn", "url": "https://linkedin.com/in/YOUR_LINKEDIN_ID" },
-      { "name": "GitHub",   "url": "https://github.com/YOUR_GITHUB_USERNAME"  }
+      { "name": "LinkedIn", "url": "https://www.linkedin.com/in/gokul-loganathan" },
+      { "name": "GitHub",   "url": "https://github.com/gokulloganathn"            }
     ],
 
     "terminal": [
@@ -103,6 +143,7 @@
       "companyLogo": "",
       "role": "Senior Software Engineer",
       "period": "Nov 2024 – Present",
+      "chips": ["Angular","TypeScript","RxJS","Java 17","Spring Boot","MongoDB","GCP"],
       "achievements": [
         "Developing dynamic web app for <strong>government vehicle-export approvals</strong> across 23+ countries using Angular, TypeScript, and RxJS.",
         "Designed secure REST APIs with <strong>Java 17, Spring Boot, Spring Data JPA & Spring Security</strong> for distributed systems.",
@@ -116,6 +157,7 @@
       "companyLogo": "",
       "role": "Junior Engineer",
       "period": "Jan 2023 – Oct 2024",
+      "chips": ["Java 17","Spring Boot","Spring MVC","JUnit","Jenkins","GCP","Maven"],
       "achievements": [
         "<strong>High Achiever Award</strong> – Ford Intern City of Tomorrow Challenge, Ford NextGen 2023.",
         "Built RESTful/OpenAPIs with <strong>Java 17, Spring MVC, Spring Data JPA & Spring Security</strong>.",
