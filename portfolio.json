@@ -52,16 +52,14 @@
   },
 
   "sections": {
-    "skills":     { "eyebrow": "Technical Arsenal",  "title": "Skills & Proficiency",  "sub": "Technologies I work with daily, ranked by proficiency level." },
-    "experience": { "eyebrow": "Career Journey",     "title": "Work Experience",        "sub": "Production systems serving users globally." },
-    "projects":   { "eyebrow": "Selected Work",      "title": "Projects",               "sub": "Things I've built from idea to deployment." },
-    "contact":    { "eyebrow": "Let's Connect",      "title": "Get in Touch",           "sub": "Open to full-time roles, freelance projects, or just a good chat about tech." }
+    "skills":     { "eyebrow": "Technical Arsenal",  "title": "Skills & Proficiency",  "sub": "Languages, frameworks, and tools I work with daily." },
+    "experience": { "eyebrow": "Career Journey",     "title": "Work Experience",        "sub": "Building scalable systems at Ford India." }
   },
 
   "profile": {
     "name": "Gokul Loganathan",
     "title": "Full Stack Java Developer",
-    "bio": "Building scalable enterprise applications with Java 17, Spring Boot & Angular. Turning complex problems into elegant, high-performance solutions. Recognized for 25–50× performance improvements.",
+    "bio": "Full Stack Java Developer with 3 years of experience developing scalable enterprise applications using Java 17, Spring Boot, and REST APIs. Strong expertise in microservices architecture and NoSQL databases. Experienced across the full SDLC with a proven ability to ship high-quality software on time.",
     "email": "gokulloganathn@gmail.com",
     "phone": "+91 80723 80221",
     "location": "Chennai, India",
@@ -76,15 +74,15 @@
 
     "typingPhrases": [
       "I am Gokul Loganathan",
-      "I build Java REST APIs & Services",
+      "I build Java REST APIs & Microservices",
       "I develop Dynamic Web Applications",
-      "I architect Micro Frontends & Microservices"
+      "I architect Cloud-Native Solutions"
     ],
 
     "stats": [
       { "num": 3,  "suffix": "+", "label": "Years Exp."  },
-      { "num": 50, "suffix": "×", "label": "Perf. Gain"  },
-      { "num": 23, "suffix": "+", "label": "Countries"   }
+      { "num": 20, "suffix": "+", "label": "Countries"   },
+      { "num": 15, "suffix": "+", "label": "Technologies" }
     ],
 
     "social": [
@@ -94,22 +92,20 @@
 
     "terminal": [
       { "kind": "cmd",   "cmd":  "./whoami.sh" },
-      { "kind": "out",   "text": "gokul_loganathan  |  Senior SWE @ Ford India" },
+      { "kind": "out",   "text": "gokul_loganathan  |  Software Engineer @ Ford India" },
       { "kind": "blank" },
       { "kind": "cmd",   "cmd":  "./skills.sh --backend" },
-      { "kind": "out",   "text": "Java 17  ·  Spring Boot  ·  Hibernate  ·  Spring Security" },
+      { "kind": "out",   "text": "Java 17  ·  Spring Boot  ·  Spring MVC  ·  Spring Security" },
       { "kind": "cmd",   "cmd":  "./skills.sh --frontend" },
-      { "kind": "out",   "text": "Angular  ·  TypeScript  ·  React JS  ·  RxJS" },
-      { "kind": "cmd",   "cmd":  "./skills.sh --cloud-db" },
-      { "kind": "out",   "text": "MongoDB  ·  PostgreSQL  ·  MySQL  ·  GCP Firestore" },
-      { "kind": "blank" },
-      { "kind": "cmd",   "cmd":  "./performance.sh" },
-      { "kind": "out",   "text": "⚡ 25-50x boost on 1.2M-doc MongoDB dataset" },
-      { "kind": "ok",    "text": "✓  2-3 min  →  3-6 sec response time" },
+      { "kind": "out",   "text": "Angular  ·  TypeScript  ·  RxJS  ·  JavaScript" },
+      { "kind": "cmd",   "cmd":  "./skills.sh --database" },
+      { "kind": "out",   "text": "MongoDB  ·  GCP Firestore" },
+      { "kind": "cmd",   "cmd":  "./tools.sh --devops" },
+      { "kind": "out",   "text": "SonarQube  ·  42Crunch  ·  FOSSA  ·  Git  ·  Gradle" },
       { "kind": "blank" },
       { "kind": "cmd",   "cmd":  "./experience.sh --current" },
-      { "kind": "out",   "text": "Ford India  |  Senior Software Engineer" },
-      { "kind": "dim",   "text": "# Nov 2024 – Present  |  23+ countries" },
+      { "kind": "out",   "text": "Ford India  |  Software Engineer" },
+      { "kind": "dim",   "text": "# Nov 2024 – Present  |  20+ countries" },
       { "kind": "blank" },
       { "kind": "cmd",   "cmd":  "./status.sh" },
       { "kind": "ok",    "text": "● Open to work  |  Chennai, India" }
@@ -117,39 +113,55 @@
   },
 
   "skills": [
-    { "name": "Java 17",        "level": 92, "category": "Backend"  },
-    { "name": "Spring Boot",    "level": 90, "category": "Backend"  },
-    { "name": "Hibernate/JPA",  "level": 85, "category": "Backend"  },
-    { "name": "Spring Security","level": 82, "category": "Backend"  },
-    { "name": "Angular",        "level": 85, "category": "Frontend" },
-    { "name": "TypeScript",     "level": 82, "category": "Frontend" },
-    { "name": "React JS",       "level": 70, "category": "Frontend" },
-    { "name": "JavaScript",     "level": 78, "category": "Frontend" },
-    { "name": "MongoDB",        "level": 80, "category": "Database" },
-    { "name": "PostgreSQL",     "level": 78, "category": "Database" },
-    { "name": "MySQL",          "level": 82, "category": "Database" },
-    { "name": "Google Cloud",   "level": 75, "category": "Cloud"    },
-    { "name": "Docker",         "level": 72, "category": "DevOps"   },
-    { "name": "Kubernetes",     "level": 65, "category": "DevOps"   },
-    { "name": "Git",            "level": 88, "category": "DevOps"   },
-    { "name": "Jenkins",        "level": 75, "category": "DevOps"   },
-    { "name": "Postman",        "level": 88, "category": "Testing"  },
-    { "name": "JUnit",          "level": 82, "category": "Testing"  }
+    { "name": "Java 17",          "level": 92, "category": "Languages"  },
+    { "name": "Spring Boot",      "level": 90, "category": "Frameworks" },
+    { "name": "Spring MVC",       "level": 88, "category": "Frameworks" },
+    { "name": "Spring Data",      "level": 87, "category": "Frameworks" },
+    { "name": "Spring Security",  "level": 85, "category": "Frameworks" },
+    { "name": "REST APIs",        "level": 90, "category": "APIs"       },
+    { "name": "Microservices",    "level": 85, "category": "Architecture"},
+    { "name": "Angular",          "level": 85, "category": "Frontend"   },
+    { "name": "TypeScript",       "level": 82, "category": "Languages"  },
+    { "name": "RxJS",             "level": 80, "category": "Frontend"   },
+    { "name": "JavaScript",       "level": 78, "category": "Languages"  },
+    { "name": "HTML5/CSS3",       "level": 80, "category": "Frontend"   },
+    { "name": "MongoDB",          "level": 85, "category": "Databases"  },
+    { "name": "GCP",              "level": 82, "category": "Cloud"      },
+    { "name": "Firestore",        "level": 80, "category": "Databases"  },
+    { "name": "Cloud Storage",    "level": 78, "category": "Cloud"      },
+    { "name": "JUnit",            "level": 85, "category": "Testing"    },
+    { "name": "Mockito",          "level": 82, "category": "Testing"    },
+    { "name": "Playwright",       "level": 80, "category": "Testing"    },
+    { "name": "TDD",              "level": 85, "category": "Practices"  },
+    { "name": "SonarQube",        "level": 80, "category": "Quality"    },
+    { "name": "42Crunch",         "level": 78, "category": "Security"   },
+    { "name": "FOSSA",            "level": 75, "category": "Compliance" },
+    { "name": "Git",              "level": 88, "category": "VCS"        },
+    { "name": "Gradle",           "level": 82, "category": "Build"      },
+    { "name": "Postman",          "level": 88, "category": "API Tools"  },
+    { "name": "Swagger/OpenAPI",  "level": 85, "category": "API Tools"  },
+    { "name": "Jira",             "level": 82, "category": "Project Mgmt"},
+    { "name": "Rally",            "level": 75, "category": "Project Mgmt"},
+    { "name": "Agile/Scrum",      "level": 88, "category": "Practices"  },
+    { "name": "IntelliJ IDEA",    "level": 90, "category": "IDEs"       },
+    { "name": "WebStorm",         "level": 85, "category": "IDEs"       },
+    { "name": "VS Code",          "level": 82, "category": "IDEs"       }
   ],
 
   "experience": [
     {
       "company": "Ford India",
       "companyLogo": "",
-      "role": "Senior Software Engineer",
+      "role": "Software Engineer",
       "period": "Nov 2024 – Present",
-      "chips": ["Angular","TypeScript","RxJS","Java 17","Spring Boot","MongoDB","GCP"],
+      "chips": ["Angular","TypeScript","RxJS","Java 17","Spring Boot","MongoDB","GCP","REST APIs","Microservices"],
       "achievements": [
-        "Developing dynamic web app for <strong>government vehicle-export approvals</strong> across 23+ countries using Angular, TypeScript, and RxJS.",
-        "Designed secure REST APIs with <strong>Java 17, Spring Boot, Spring Data JPA & Spring Security</strong> for distributed systems.",
-        "Leveraging <strong>GCP</strong> (Firestore, Cloud Storage, App Engine) for microservices deployment.",
-        "Delivered <strong>25–50× performance improvement</strong> on 1.2M-document MongoDB dataset — 2–3 min → 3–6 sec.",
-        "Automated compliance document generation, eliminating all manual formatting effort."
+        "Developing a dynamic web application for supporting government vehicle-export approvals across 20+ countries using Angular, TypeScript, and RxJS.",
+        "Developed REST APIs with Java 17, Spring Boot, Spring MVC, Spring Data MongoDB, and Spring Security for distributed data processing.",
+        "Leveraging GCP Services (Firestore, Cloud Storage, Cloud Build, Log Explorer, Error Reporting) for deploying and managing microservices architecture.",
+        "Integrated tools like SonarQube, 42Crunch, FOSSA, and CyCode into local machine and CI pipelines to ensure code compliance and detect vulnerabilities.",
+        "Actively engaged in refinement sessions to understand business needs, preferences and feedback, forming the basis for customer-centric product development.",
+        "Automated vehicle compliance document generation via Spring Boot multi-module data aggregation, eliminating manual formatting effort."
       ]
     },
     {
@@ -157,46 +169,13 @@
       "companyLogo": "",
       "role": "Junior Engineer",
       "period": "Jan 2023 – Oct 2024",
-      "chips": ["Java 17","Spring Boot","Spring MVC","JUnit","Jenkins","GCP","Maven"],
+      "chips": ["Java 17","Spring Boot","Spring MVC","MongoDB","JUnit","Playwright","Git","GCP","Maven"],
       "achievements": [
-        "<strong>High Achiever Award</strong> – Ford Intern City of Tomorrow Challenge, Ford NextGen 2023.",
-        "Built RESTful/OpenAPIs with <strong>Java 17, Spring MVC, Spring Data JPA & Spring Security</strong>.",
-        "Implemented CI/CD pipelines: Maven, Git, Jenkins with JUnit & Playwright test suites.",
-        "Integrated Google Cloud Services with Java for file upload/download from Cloud Storage."
+        "Awarded <strong>High Achiever</strong> in the Ford Intern City of Tomorrow Challenge (Ford NextGen 2023) for innovative solution design.",
+        "Developed feature-rich modules for internal tools using Java 17, Spring MVC, and Spring Data MongoDB to support scalable distributed services.",
+        "Implemented automated test suites (JUnit, Playwright) and integrated them into CI/CD pipelines using Git and Maven.",
+        "Integrated Google Cloud Services with Java for file upload/download operations from Cloud Storage buckets, enabling seamless cloud-native functionality."
       ]
-    }
-  ],
-
-  "projects": [
-    {
-      "name": "Appetizing Recipes",
-      "subtitle": "Recipe Management App",
-      "description": "Interactive recipe management web app with real-time Firestore data, responsive design, and intuitive browsing and submission flows.",
-      "icon": "🍽️",
-      "iconBg": "rgba(0,255,153,0.10)",
-      "tech": ["React JS", "Material UI", "Firestore", "GCP"],
-      "liveUrl": "",
-      "githubUrl": ""
-    },
-    {
-      "name": "Food Demand AI",
-      "subtitle": "ML Supply Prediction",
-      "description": "AI-powered application predicting food supply & demand trends using machine learning. Full lifecycle from UI design to IBM Cloud deployment.",
-      "icon": "🤖",
-      "iconBg": "rgba(0,212,255,0.10)",
-      "tech": ["Django", "IBM Cloud", "Machine Learning", "Python"],
-      "liveUrl": "",
-      "githubUrl": ""
-    },
-    {
-      "name": "Skill Gallery",
-      "subtitle": "Document Management",
-      "description": "Secure document management platform for uploading, storing, and retrieving certificates with clean UI and structured MySQL database.",
-      "icon": "📁",
-      "iconBg": "rgba(139,92,246,0.10)",
-      "tech": ["PHP", "MySQL", "JavaScript", "HTML/CSS"],
-      "liveUrl": "",
-      "githubUrl": ""
     }
   ]
 }
