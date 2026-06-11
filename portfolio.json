@@ -64,7 +64,7 @@
     "phone": "+91 80723 80221",
     "location": "Chennai, India",
 
-    "resumeUrl":     "https://raw.githubusercontent.com/gokulloganathn/portfolio/main/resume/Gokul_Loganathan_Resume.pdf",
+    "resumeUrl":     "https://raw.githubusercontent.com/gokulloganathn/portfolio/main/resume/GokulLoganathanResume.docx",
     "avatarUrl":     "",
     "badge1":        "Open to Work",
     "badge2":        "3 yrs @ Ford India",
@@ -81,7 +81,6 @@
 
     "stats": [
       { "num": 3,  "suffix": "+", "label": "Years Exp."  },
-      { "num": 20, "suffix": "+", "label": "Countries"   },
       { "num": 15, "suffix": "+", "label": "Technologies" }
     ],
 
